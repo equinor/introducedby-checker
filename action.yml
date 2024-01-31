@@ -1,0 +1,8 @@
+name: "IntroducedBy Checker"
+description: "Scans repository for PackageReferences marked with IntroducedBy attribute and deletes them"
+outputs:
+  deleted_report:
+    description: "A report of which nuget packages that has been deleted"
+runs:
+  using: "docker"
+  image: "Dockerfile"
