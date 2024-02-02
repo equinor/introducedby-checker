@@ -1,6 +1,4 @@
-import xml.etree.ElementTree as ET
-
-class MarkedDependency:
+class PackageReference:
     def __init__(self, name: str, introduced_by:str):
         self.name = name
         self.introduced_by = introduced_by
@@ -9,15 +7,15 @@ class Project:
     def __init__(self, name:str, file_path:str): 
         self.name = name
         self.file_path = file_path
-        self.marked_dependency = []
+        self.package_references = []
 
-    def add_marked_dependency(self, dependency: MarkedDependency):
-        self.marked_dependency.append(dependency)
+    def add_package_reference(self, dependency: PackageReference):
+        self.package_references.append(dependency)
 
-    def get_marked_dependencies(self):
-        return self.marked_dependency
+    def get_package_references(self):
+        return self.package_references
 
-class Report:
+class Findings:
     def __init__(self):
         self.projects = []
 

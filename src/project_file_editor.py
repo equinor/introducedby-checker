@@ -1,42 +1,48 @@
 import xml.etree.ElementTree as ET
 import os
-from report import Report, MarkedDependency, Project
+from findings import Findings, PackageReference, Project
 
 class ProjectFileEditor:
-
-    def scan_and_delete_marked_package_references(report: Report):
+    
+    @staticmethod
+    def scan_and_delete_marked_package_references(findings: Findings) -> None:
         project_files = ProjectFileEditor._get_project_file_paths()
+
         for f in project_files:
             tree = ET.parse(f)
             root = tree.getroot()
-            marked_deps = root.findall("./ItemGroup/PackageReference[@IntroducedBy]")
-            if marked_deps is not None:
-                ProjectFileEditor._delete_dependencies(f, tree, root, marked_deps)
-                project = ProjectFileEditor._map_dependencies_to_project(f, marked_deps)
-                report.add_project(project)
+            marked_elements = root.findall("./ItemGroup/PackageReference[@IntroducedBy]")
 
-    def _get_project_file_paths():
+            if marked_elements is not None:
+                ProjectFileEditor._delete_marked(f, tree, root, marked_elements)
+                project = ProjectFileEditor._map_marked_to_project(f, marked_elements)
+                findings.add_project(project)
+
+    @staticmethod
+    def _get_project_file_paths() -> []:
         return [
              os.path.join(root, file)
              for root, dirs, files in os.walk(os.getcwd()) 
              for file in files 
              if file.endswith('.csproj') or file.endswith('fsproj')
              ]
-    
-    def _map_dependencies_to_project(f: str, deps: []):
-        project = Project(os.path.basename(f), f)
-        print(project.name)
-        print(project.file_path)
-        for d in deps:
-            marked_dependency = MarkedDependency(
-                name = f"{d.attrib.get('Include')}@{d.attrib.get('Version')}",
-                introduced_by = d.attrib.get("IntroducedBy")
-                )
-            project.add_marked_dependency(marked_dependency)
-        return project
-        
-    def _delete_dependencies(f: str, tree: ET.ElementTree, root: ET.Element, marked_deps: list[ET.Element]):
+
+    @staticmethod  
+    def _delete_marked(f: str, tree: ET.ElementTree, root: ET.Element, elements: list[ET.Element]) -> None:
         parent = root.find("./ItemGroup/PackageReference[@IntroducedBy]/..")
-        for m in marked_deps:
-            parent.remove(m)
+        for e in elements:
+            parent.remove(e)
         tree.write(f)
+
+    @staticmethod
+    def _map_marked_to_project(f: str, elements: list[ET.Element]) -> Project:
+        project = Project(os.path.basename(f), f)
+
+        for e in elements:
+            package_ref = PackageReference(
+                name = f"{e.attrib.get('Include')}@{e.attrib.get('Version')}",
+                introduced_by = e.attrib.get("IntroducedBy")
+                )
+            project.add_package_reference(package_ref)
+            
+        return project
