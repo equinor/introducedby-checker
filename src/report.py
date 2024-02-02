@@ -11,9 +11,9 @@ class Project:
         self.file_path = file_path
         self.marked_dependency = []
 
-    def add_marked_dependency(self, marked_dependency: MarkedDependency):
-        self.marked_dependency.append(marked_dependency)
-    
+    def add_marked_dependency(self, dependency: MarkedDependency):
+        self.marked_dependency.append(dependency)
+
     def get_marked_dependencies(self):
         return self.marked_dependency
 

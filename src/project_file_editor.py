@@ -11,9 +11,8 @@ class ProjectFileEditor:
             root = tree.getroot()
             marked_deps = root.findall("./ItemGroup/PackageReference[@IntroducedBy]")
             if marked_deps is not None:
-                ProjectFileEditor._delete_marked_package_references(f, tree, root, marked_deps)
-
-                project = ProjectFileEditor._add_marked_dependency_to_project(f, marked_deps)
+                ProjectFileEditor._delete_dependencies(f, tree, root, marked_deps)
+                project = ProjectFileEditor._map_dependencies_to_project(f, marked_deps)
                 report.add_project(project)
 
     def _get_project_file_paths():
@@ -24,18 +23,19 @@ class ProjectFileEditor:
              if file.endswith('.csproj') or file.endswith('fsproj')
              ]
     
-    def _add_marked_dependency_to_project(f: str, deps: []):
+    def _map_dependencies_to_project(f: str, deps: []):
         project = Project(os.path.basename(f), f)
         print(project.name)
         print(project.file_path)
         for d in deps:
             marked_dependency = MarkedDependency(
                 name = f"{d.attrib.get('Include')}@{d.attrib.get('Version')}",
-                introduced_by = d.attrib.get("BecauseOf"))
+                introduced_by = d.attrib.get("IntroducedBy")
+                )
             project.add_marked_dependency(marked_dependency)
         return project
         
-    def _delete_marked_package_references(f: str, tree: ET.ElementTree, root: ET.Element, marked_deps: list[ET.Element]):
+    def _delete_dependencies(f: str, tree: ET.ElementTree, root: ET.Element, marked_deps: list[ET.Element]):
         parent = root.find("./ItemGroup/PackageReference[@IntroducedBy]/..")
         for m in marked_deps:
             parent.remove(m)
