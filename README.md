@@ -21,7 +21,7 @@ on:
 jobs: 
   compliance_test:
     runs-on: ubuntu-latest
-    name: Compliance test
+    name: IntroducedBy Checker
     permissions:
       issues:   write
       contents: read
