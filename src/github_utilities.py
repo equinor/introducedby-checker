@@ -27,11 +27,9 @@ class PullRequestCreator:
         try:
             self.repo.create_git_ref(ref='refs/heads/' + self.target_branch, sha=self.source.commit.sha)
         except:
-            raise Exception(f"This is the default branch: {self.repo.default_branch}. 
-                            The default branch is None: {self.source is None}.
-                            The SHA of the last commit from default branch is {self.source.commit.sha}")
+            raise Exception(f"This is the default branch: {self.repo.default_branch}. The default branch is None: {self.source is None}. The SHA of the last commit from default branch is {self.source.commit.sha}")
 
-
+ 
     def _push(self, p: Project) -> None:
         author = InputGitAuthor(
         "GitHub Action",
