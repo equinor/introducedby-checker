@@ -23,8 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     name: IntroducedBy Checker
     permissions:
-      issues:   write
-      contents: read
+      pull_request: write
+      contents: write
     steps:
       - name: Checkout # Makes the source code available to be scanned
         id:   checkout
