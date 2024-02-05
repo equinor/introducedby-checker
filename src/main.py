@@ -20,6 +20,4 @@ if __name__ == '__main__':
     ProjectFileEditor.scan_and_delete_marked_package_references(findings)
     if len(findings.get_projects()) >=1: 
         git_utils = PullRequestCreator(repo, findings)
-        git_utils.create_pullt_request()
-
-***REMOVED***
+        git_utils.create_pull_request()
