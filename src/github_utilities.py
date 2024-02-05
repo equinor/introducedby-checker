@@ -48,7 +48,8 @@ class PullRequestCreator:
         
     def _create_body(self) -> str:
         body = StringIO()
-        body.write("Deleted package references that was marked with the IntroducedBy attribute. Packages marked with this attribute has been installed directly becuase other dependencies used vulnerable versions of these, hence introducing a transitive vulnerability.")
+        body.write("Deleted package references marked with the `IntroducedBy` attribute.")
+        body.write("\n")
         for p in self.findings.get_projects():
             body.write(f"## {p.name}\n")
             table = MarkdownTableBuilder()
