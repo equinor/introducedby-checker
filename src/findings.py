@@ -6,7 +6,7 @@ class PackageReference:
 class Project:
     def __init__(self, name:str, file_path:str): 
         self.name = name
-        self.file_path = file_path
+        self.file_path = file_path.replace("/github/workspace/", "")
         self.package_references = []
 
     def add_package_reference(self, dependency: PackageReference):
