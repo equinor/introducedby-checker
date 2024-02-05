@@ -1,4 +1,4 @@
-# IntroducedBy Checker Action
+# IntroducedBy Checker Action 🔍
 
 ## How it works
 When adding this action to a workflow it will scan all NuGet package references in the source code. The action will find and delete all package references marked with the `IntroducedBy` attribute. When this is done it creates a pull request with the changes.
@@ -15,6 +15,7 @@ report on which dependencies can be safely deleted and which ones need to be ret
 Add the following to your workflow
 
 ``` yml
+name: 🔍 IntroducedBy Checker 🔍
 on:
   schedule:
     - cron: '0 0 * * 1'
