@@ -29,7 +29,7 @@ jobs:
       - name: Checkout # Makes the source code available to be scanned
         id:   checkout
         uses: actions/checkout@v4 
-      - name: Scan repo # Scans the source code for marked package references
+      - name: Delete marked package references # Scans the source code for marked package references and deletes them
         id:   scan
         uses: equinor/introducedby-checker@v0.0.1
         env:
