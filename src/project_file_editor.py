@@ -13,7 +13,7 @@ class ProjectFileEditor:
             root = tree.getroot()
             marked_elements = root.findall("./ItemGroup/PackageReference[@IntroducedBy]")
 
-            if marked_elements is not None:
+            if len(marked_elements) >= 1:
                 ProjectFileEditor._delete_marked(f, tree, root, marked_elements)
                 project = ProjectFileEditor._map_marked_to_project(f, marked_elements)
                 findings.add_project(project)

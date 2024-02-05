@@ -36,7 +36,6 @@ class PullRequestCreator:
         "action@github.com")
         commit_message = f"Deleting marked package references from {p.name}"
         with open(p.file_path) as f: new_file_content = f.read()
-        print(f"This is the file path {p.file_path}")
         contents = self.repo.get_contents(p.file_path, ref=self.target_branch)
 
         self.repo.update_file(
