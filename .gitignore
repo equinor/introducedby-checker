@@ -5,6 +5,7 @@
 
 # Publish
 .publish/
+src/test.py
 
 # Obsidian
 .obsidian/
