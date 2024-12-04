@@ -1,6 +1,6 @@
 name: 🔍 IntroducedBy Checker 🔍
 on:
-  push:
+  pull_request:
   
 jobs: 
   compliance_test:
