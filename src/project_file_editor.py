@@ -7,7 +7,9 @@ class ProjectFileEditor:
     @staticmethod
     def scan_and_delete_marked_package_references(findings: Findings) -> None:
         project_files = ProjectFileEditor._get_project_file_paths()
-
+        if(len(project_files)<1):
+            print("No project files found")
+            
         for f in project_files:
             tree = ET.parse(f)
             root = tree.getroot()
