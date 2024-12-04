@@ -1,6 +1,7 @@
 name: 🔍 IntroducedBy Checker 🔍
 on:
   pull_request:
+    types: [opened, synchronize, reopened]
   
 jobs: 
   compliance_test:
