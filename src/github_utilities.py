@@ -1,4 +1,4 @@
-from github import Repository, InputGitAuthor
+from github import Repository
 from datetime import date
 from findings import Findings, Project
 from io import StringIO
