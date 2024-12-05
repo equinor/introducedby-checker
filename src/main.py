@@ -3,7 +3,6 @@ from project_file_editor import ProjectFileEditor
 from github_utilities import PullRequestCreator
 from findings import Findings
 from github import Github, Auth
-from harmløs_test import commit
 
 if __name__ == '__main__':
 
