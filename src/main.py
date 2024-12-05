@@ -16,12 +16,9 @@ if __name__ == '__main__':
 
     github = Github(auth=token)
     repo = github.get_repo(repo_uri)
-    
-    print("Can I see this log message")
-    commit(github, acces_token)
-    
-    # findings = Findings()
-    # ProjectFileEditor.scan_and_delete_marked_package_references(findings)
-    # if len(findings.get_projects()) >=1: 
-    #     git_utils = PullRequestCreator(repo, token,  findings)
-    #     git_utils.create_pull_request()
+
+    findings = Findings()
+    ProjectFileEditor.scan_and_delete_marked_package_references(findings)
+    if len(findings.get_projects()) >=1: 
+        git_utils = PullRequestCreator(repo, acces_token,  findings)
+        git_utils.create_pull_request()
