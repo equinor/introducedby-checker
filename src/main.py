@@ -3,6 +3,7 @@ from project_file_editor import ProjectFileEditor
 from github_utilities import PullRequestCreator
 from findings import Findings
 from github import Github, Auth
+from test import commit
 
 if __name__ == '__main__':
 
@@ -15,9 +16,11 @@ if __name__ == '__main__':
 
     github = Github(auth=token)
     repo = github.get_repo(repo_uri)
-
-    findings = Findings()
-    ProjectFileEditor.scan_and_delete_marked_package_references(findings)
-    if len(findings.get_projects()) >=1: 
-        git_utils = PullRequestCreator(repo, token,  findings)
-        git_utils.create_pull_request()
+    
+    commit(github, acces_token)
+    
+    # findings = Findings()
+    # ProjectFileEditor.scan_and_delete_marked_package_references(findings)
+    # if len(findings.get_projects()) >=1: 
+    #     git_utils = PullRequestCreator(repo, token,  findings)
+    #     git_utils.create_pull_request()

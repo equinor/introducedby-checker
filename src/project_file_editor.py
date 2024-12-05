@@ -7,9 +7,7 @@ class ProjectFileEditor:
     @staticmethod
     def scan_and_delete_marked_package_references(findings: Findings) -> None:
         project_files = ProjectFileEditor._get_project_file_paths()
-        if(len(project_files)<1):
-            print("No project files found")
-            
+
         for f in project_files:
             tree = ET.parse(f)
             root = tree.getroot()
@@ -24,7 +22,7 @@ class ProjectFileEditor:
     def _get_project_file_paths() -> []:
         return [
              os.path.join(root, file)
-             for root, files in os.walk(os.getcwd()) 
+             for root, dirs, files in os.walk(os.getcwd()) 
              for file in files 
              if file.endswith('.csproj') or file.endswith('fsproj')
              ]
