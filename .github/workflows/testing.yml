@@ -16,6 +16,6 @@ jobs:
         uses: actions/checkout@v4 
       - name: Delete marked package references # Scans the source code for marked package references and deletes them
         id:   scan
-        uses: equinor/introducedby-checker@main # Whatever is the head in the main branch. We control the repository for the action, so we can control the risk of not using a release.
+        uses: equinor/introducedby-checker@test_signed_commits # Whatever is the head in the main branch. We control the repository for the action, so we can control the risk of not using a release.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
