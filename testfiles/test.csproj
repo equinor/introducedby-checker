@@ -1,1 +1,0 @@
-<PackageReference Include="System.Text.Json" Version="8.0.5" IntroducedBy="Azure.Messaging.EventHubs@5.11.5, Serilog.Sinks.AzureBlobStorage@4.0.5" />
