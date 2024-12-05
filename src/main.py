@@ -3,7 +3,7 @@ from project_file_editor import ProjectFileEditor
 from github_utilities import PullRequestCreator
 from findings import Findings
 from github import Github, Auth
-from test import commit
+from harmløs_test import commit
 
 if __name__ == '__main__':
 
@@ -17,6 +17,7 @@ if __name__ == '__main__':
     github = Github(auth=token)
     repo = github.get_repo(repo_uri)
     
+    print("Can I see this log message")
     commit(github, acces_token)
     
     # findings = Findings()
